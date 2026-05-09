@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
   <style>
     /* ═══════════════════════════════════════════════
        ROOT & RESET
@@ -441,7 +442,7 @@
 
     .stack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -479,12 +480,23 @@
     }
     .stack-items { display: flex; flex-direction: column; gap: 10px; }
     .stack-item {
-      font-size: 14px;
+      font-size: 13px;
       color: rgba(255,255,255,0.75);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       font-weight: 400;
+    }
+    .stack-icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+    .stack-icon-di {
+      font-size: 18px;
+      flex-shrink: 0;
+      line-height: 1;
     }
     .sdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
     .dg { background: var(--accent); }
@@ -1174,46 +1186,66 @@
     <div class="section-label reveal">02 — Technical Stack</div>
     <h2 class="section-heading reveal">Tools & <span>Technologies</span></h2>
     <div class="stack-grid reveal">
+      <!-- Core & Systems -->
       <div class="stack-cell sc-blue">
         <div class="stack-cat">Core & Systems</div>
         <div class="stack-items">
-          <div class="stack-item"><span class="sdot db"></span>Python</div>
-          <div class="stack-item"><span class="sdot db"></span>Bash / Shell</div>
-          <div class="stack-item"><span class="sdot db"></span>SQL / PostgreSQL</div>
-          <div class="stack-item"><span class="sdot db"></span>REST APIs</div>
+          <div class="stack-item"><i class="devicon-python-plain colored stack-icon-di"></i>Python</div>
+          <div class="stack-item"><i class="devicon-bash-plain colored stack-icon-di"></i>Bash / Shell</div>
+          <div class="stack-item"><i class="devicon-postgresql-plain colored stack-icon-di"></i>SQL / PostgreSQL</div>
+          <div class="stack-item"><i class="devicon-typescript-plain colored stack-icon-di"></i>TypeScript</div>
+          <div class="stack-item"><i class="devicon-redis-plain colored stack-icon-di"></i>Redis</div>
+          <div class="stack-item"><i class="devicon-mongodb-plain colored stack-icon-di"></i>MongoDB</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/swagger/5B8EFF" class="stack-icon" alt="REST APIs"/>REST APIs</div>
+          <div class="stack-item"><i class="devicon-graphql-plain colored stack-icon-di"></i>GraphQL</div>
           <div class="stack-item"><span class="sdot db"></span>AST Analysis</div>
         </div>
       </div>
+      <!-- AI & Agentic -->
       <div class="stack-cell sc-green">
         <div class="stack-cat">AI & Agentic</div>
         <div class="stack-items">
-          <div class="stack-item"><span class="sdot dg"></span>LangChain / LangGraph</div>
-          <div class="stack-item"><span class="sdot dg"></span>HuggingFace</div>
-          <div class="stack-item"><span class="sdot dg"></span>Groq</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/langchain/7DF9C2" class="stack-icon" alt="LangChain"/>LangChain / LangGraph</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/huggingface/7DF9C2" class="stack-icon" alt="HuggingFace"/>HuggingFace</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/openai/7DF9C2" class="stack-icon" alt="OpenAI"/>OpenAI API</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/anthropic/7DF9C2" class="stack-icon" alt="Anthropic"/>Anthropic Claude</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/groq/7DF9C2" class="stack-icon" alt="Groq"/>Groq</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/ollama/7DF9C2" class="stack-icon" alt="Ollama"/>Ollama</div>
           <div class="stack-item"><span class="sdot dg"></span>RAG Pipelines</div>
+          <div class="stack-item"><span class="sdot dg"></span>Vector Databases</div>
           <div class="stack-item"><span class="sdot dg"></span>Prompt Engineering</div>
         </div>
       </div>
+      <!-- Infrastructure -->
       <div class="stack-cell sc-amber">
         <div class="stack-cat">Infrastructure</div>
         <div class="stack-items">
-          <div class="stack-item"><span class="sdot da"></span>Docker</div>
-          <div class="stack-item"><span class="sdot da"></span>FastAPI</div>
-          <div class="stack-item"><span class="sdot da"></span>Git / GitHub Actions</div>
-          <div class="stack-item"><span class="sdot da"></span>FFmpeg</div>
-          <div class="stack-item"><span class="sdot da"></span>Linux / Ubuntu</div>
+          <div class="stack-item"><i class="devicon-docker-plain colored stack-icon-di"></i>Docker</div>
+          <div class="stack-item"><i class="devicon-kubernetes-plain colored stack-icon-di"></i>Kubernetes</div>
+          <div class="stack-item"><i class="devicon-fastapi-plain colored stack-icon-di"></i>FastAPI</div>
+          <div class="stack-item"><i class="devicon-nginx-plain colored stack-icon-di"></i>Nginx</div>
+          <div class="stack-item"><i class="devicon-git-plain colored stack-icon-di"></i>Git / GitHub Actions</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/amazonaws/FFB86C" class="stack-icon" alt="AWS"/>AWS</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/googlecloud/FFB86C" class="stack-icon" alt="GCP"/>Google Cloud</div>
+          <div class="stack-item"><i class="devicon-ubuntu-plain colored stack-icon-di"></i>Linux / Ubuntu</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/ffmpeg/FFB86C" class="stack-icon" alt="FFmpeg"/>FFmpeg</div>
         </div>
       </div>
+      <!-- Data Science -->
       <div class="stack-cell sc-red">
         <div class="stack-cat">Data Science</div>
         <div class="stack-items">
-          <div class="stack-item"><span class="sdot dr"></span>Pandas / NumPy</div>
-          <div class="stack-item"><span class="sdot dr"></span>Scikit-learn</div>
-          <div class="stack-item"><span class="sdot dr"></span>Data Visualization</div>
+          <div class="stack-item"><i class="devicon-pandas-plain colored stack-icon-di"></i>Pandas / NumPy</div>
+          <div class="stack-item"><i class="devicon-pytorch-plain colored stack-icon-di"></i>PyTorch</div>
+          <div class="stack-item"><i class="devicon-tensorflow-original colored stack-icon-di"></i>TensorFlow</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/scikitlearn/FF6B6B" class="stack-icon" alt="Scikit-learn"/>Scikit-learn</div>
+          <div class="stack-item"><i class="devicon-jupyter-plain colored stack-icon-di"></i>Jupyter Notebooks</div>
+          <div class="stack-item"><img src="https://cdn.simpleicons.org/matplotlib/FF6B6B" class="stack-icon" alt="Matplotlib"/>Matplotlib / Seaborn</div>
           <div class="stack-item"><span class="sdot dr"></span>Feature Engineering</div>
           <div class="stack-item"><span class="sdot dr"></span>Model Evaluation</div>
         </div>
       </div>
+      <!-- Practices -->
       <div class="stack-cell sc-purple">
         <div class="stack-cat">Practices</div>
         <div class="stack-items">
@@ -1222,6 +1254,9 @@
           <div class="stack-item"><span class="sdot dp"></span>Eval-Driven Development</div>
           <div class="stack-item"><span class="sdot dp"></span>Structured Outputs</div>
           <div class="stack-item"><span class="sdot dp"></span>Production Deployment</div>
+          <div class="stack-item"><span class="sdot dp"></span>CI/CD Pipelines</div>
+          <div class="stack-item"><span class="sdot dp"></span>System Design</div>
+          <div class="stack-item"><span class="sdot dp"></span>Technical Writing</div>
         </div>
       </div>
     </div>
