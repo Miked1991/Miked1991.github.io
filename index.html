@@ -1515,10 +1515,9 @@
       </div>
 
       <form class="contact-form" id="contactForm" novalidate>
-        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY"/>
-        <input type="hidden" name="subject" value="Portfolio Contact — New Message"/>
-        <input type="hidden" name="from_name" value="Portfolio Contact Form"/>
-        <input type="hidden" name="redirect" value="false"/>
+        <input type="hidden" name="_subject" value="Portfolio Contact — New Message"/>
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_template" value="table"/>
         <div class="form-field">
           <label for="cf-name">Your Name</label>
           <input id="cf-name" type="text" name="name" placeholder="Ada Lovelace" required/>
@@ -1597,38 +1596,39 @@
     }
   }
 
-  // ── Form handler (Web3Forms) ──
+  // ── Form handler (Formsubmit.co — no API key needed) ──
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
     const status = document.getElementById('form-status');
     const form = this;
 
-    // Basic client-side validation
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const message = document.getElementById('cf-message').value.trim();
 
     btn.textContent = 'Sending…';
     btn.disabled = true;
     status.style.display = 'none';
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('https://formsubmit.co/ajax/mikiasdagem@gmail.com', {
         method: 'POST',
-        body: new FormData(form)
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, message })
       });
       const data = await res.json();
 
-      if (data.success) {
+      if (data.success === 'true' || data.success === true) {
         btn.textContent = 'Sent ✓';
         btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
         status.style.cssText = 'display:block;color:var(--accent);';
-        status.textContent = 'Thanks! I\'ll get back to you shortly.';
+        status.textContent = "Thanks! I'll get back to you shortly.";
         form.reset();
       } else {
-        throw new Error(data.message || 'Submission failed');
+        throw new Error('Submission failed');
       }
     } catch (err) {
       btn.textContent = 'Failed — Try Again';
