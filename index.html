@@ -1515,9 +1515,9 @@
       </div>
 
       <form class="contact-form" id="contactForm" novalidate>
-        <input type="hidden" name="_subject" value="Portfolio Contact — New Message"/>
-        <input type="hidden" name="_captcha" value="false"/>
-        <input type="hidden" name="_template" value="table"/>
+        <input type="hidden" name="access_key" value="9e9ddeab-a59b-42a6-85b8-5808b12c89be"/>
+        <input type="hidden" name="subject" value="Portfolio Contact — New Message"/>
+        <input type="hidden" name="from_name" value="Portfolio Contact Form"/>
         <div class="form-field">
           <label for="cf-name">Your Name</label>
           <input id="cf-name" type="text" name="name" placeholder="Ada Lovelace" required/>
@@ -1596,7 +1596,7 @@
     }
   }
 
-  // ── Form handler (Formsubmit.co — no API key needed) ──
+  // ── Form handler (Web3Forms) ──
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -1605,30 +1605,25 @@
 
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    const name    = document.getElementById('cf-name').value.trim();
-    const email   = document.getElementById('cf-email').value.trim();
-    const message = document.getElementById('cf-message').value.trim();
-
     btn.textContent = 'Sending…';
     btn.disabled = true;
     status.style.display = 'none';
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/mikiasdagem@gmail.com', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name, email, message })
+        body: new FormData(form)
       });
       const data = await res.json();
 
-      if (data.success === 'true' || data.success === true) {
+      if (data.success) {
         btn.textContent = 'Sent ✓';
         btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
         status.style.cssText = 'display:block;color:var(--accent);';
         status.textContent = "Thanks! I'll get back to you shortly.";
         form.reset();
       } else {
-        throw new Error('Submission failed');
+        throw new Error(data.message || 'Submission failed');
       }
     } catch (err) {
       btn.textContent = 'Failed — Try Again';
