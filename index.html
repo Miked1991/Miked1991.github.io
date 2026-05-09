@@ -13,6 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      emailjs.init({ publicKey: 'ETsJF-g0aAZrWyUBu' });
+    });
+  </script>
   <style>
     /* ═══════════════════════════════════════════════
        ROOT & RESET
@@ -1634,7 +1639,7 @@
           message:  senderMsg,
           reply_to: 'mikiasdagem@gmail.com'
         },
-        'ETsJF-g0aAZrWyUBu'
+        { publicKey: 'ETsJF-g0aAZrWyUBu' }
       );
 
       btn.textContent = 'Sent ✓';
