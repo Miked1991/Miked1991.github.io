@@ -1596,7 +1596,7 @@
     }
   }
 
-  // ── Form handler (Web3Forms) ──
+  // ── Form handler (Web3Forms + auto-reply CC) ──
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -1605,26 +1605,45 @@
 
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
+    const senderName  = document.getElementById('cf-name').value.trim();
+    const senderEmail = document.getElementById('cf-email').value.trim();
+    const senderMsg   = document.getElementById('cf-message').value.trim();
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
     status.style.display = 'none';
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: new FormData(form)
+      // ── 1. Notify Mikias ──
+      const notifyData = new FormData(form);
+      notifyData.set('replyto', senderEmail);
+      const r1 = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', body: notifyData
       });
-      const data = await res.json();
+      const d1 = await r1.json();
+      if (!d1.success) throw new Error(d1.message || 'Submission failed');
 
-      if (data.success) {
-        btn.textContent = 'Sent ✓';
-        btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
-        status.style.cssText = 'display:block;color:var(--accent);';
-        status.textContent = "Thanks! I'll get back to you shortly.";
-        form.reset();
-      } else {
-        throw new Error(data.message || 'Submission failed');
-      }
+      // ── 2. Auto-reply to sender ──
+      const replyData = new FormData();
+      replyData.append('access_key', '9e9ddeab-a59b-42a6-85b8-5808b12c89be');
+      replyData.append('subject', 'Got your message — Mikias Dagem');
+      replyData.append('from_name', 'Mikias Dagem');
+      replyData.append('cc', senderEmail);
+      replyData.append('message',
+        `Hi ${senderName},\n\nThanks for reaching out! I received your message and will get back to you shortly.\n\n` +
+        `Here's what you sent:\n\n"${senderMsg}"\n\n` +
+        `— Mikias Dagem\n   mikiasdagem@gmail.com\n   github.com/Miked1991`
+      );
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', body: replyData
+      });
+
+      btn.textContent = 'Sent ✓';
+      btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
+      status.style.cssText = 'display:block;color:var(--accent);';
+      status.textContent = "Thanks! A confirmation has been sent to your email.";
+      form.reset();
+
     } catch (err) {
       btn.textContent = 'Failed — Try Again';
       btn.style.cssText = 'background:var(--accent3);color:#fff;opacity:1;';
