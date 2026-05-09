@@ -1514,21 +1514,26 @@
         </div>
       </div>
 
-      <div class="contact-form">
+      <form class="contact-form" id="contactForm" novalidate>
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY"/>
+        <input type="hidden" name="subject" value="Portfolio Contact — New Message"/>
+        <input type="hidden" name="from_name" value="Portfolio Contact Form"/>
+        <input type="hidden" name="redirect" value="false"/>
         <div class="form-field">
-          <label>Your Name</label>
-          <input type="text" placeholder="Ada Lovelace"/>
+          <label for="cf-name">Your Name</label>
+          <input id="cf-name" type="text" name="name" placeholder="Ada Lovelace" required/>
         </div>
         <div class="form-field">
-          <label>Email</label>
-          <input type="email" placeholder="ada@example.com"/>
+          <label for="cf-email">Email</label>
+          <input id="cf-email" type="email" name="email" placeholder="ada@example.com" required/>
         </div>
         <div class="form-field">
-          <label>Message</label>
-          <textarea rows="5" placeholder="Tell me about the project..."></textarea>
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" placeholder="Tell me about the project..." required></textarea>
         </div>
-        <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
-      </div>
+        <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+        <div id="form-status" style="display:none;margin-top:14px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.05em;"></div>
+      </form>
 
     </div>
   </div>
@@ -1592,18 +1597,52 @@
     }
   }
 
-  // ── Form handler ──
-  function handleSubmit() {
-    const btn = document.querySelector('.form-submit');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'var(--accent2)';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-      btn.style.color = '';
-    }, 3000);
-  }
+  // ── Form handler (Web3Forms) ──
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('form-status');
+    const form = this;
+
+    // Basic client-side validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        btn.textContent = 'Sent ✓';
+        btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
+        status.style.cssText = 'display:block;color:var(--accent);';
+        status.textContent = 'Thanks! I\'ll get back to you shortly.';
+        form.reset();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      btn.textContent = 'Failed — Try Again';
+      btn.style.cssText = 'background:var(--accent3);color:#fff;opacity:1;';
+      status.style.cssText = 'display:block;color:var(--accent3);';
+      status.textContent = 'Something went wrong. Email me directly: mikiasdagem@gmail.com';
+    } finally {
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.cssText = '';
+        btn.disabled = false;
+      }, 5000);
+    }
+  });
 
   // ── Smooth scroll for nav ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
