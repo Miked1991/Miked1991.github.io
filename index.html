@@ -1629,8 +1629,8 @@
       const d1 = await r1.json();
       if (!d1.success) throw new Error(d1.message || 'Submission failed');
 
-      // ── 2. Auto-reply directly to sender via EmailJS ──
-      await emailjs.send(
+      // ── 2. Auto-reply directly to sender via EmailJS (best-effort) ──
+      emailjs.send(
         'service_2fhbwat',
         'template_wroxtz5',
         {
@@ -1640,7 +1640,7 @@
           reply_to: 'mikiasdagem@gmail.com'
         },
         { publicKey: 'ETsJF-g0aAZrWyUBu' }
-      );
+      ).catch(err => console.error('EmailJS auto-reply failed:', err));
 
       btn.textContent = 'Sent ✓';
       btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
