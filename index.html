@@ -15,7 +15,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     window.addEventListener('load', function() {
-      emailjs.init({ publicKey: 'ETsJF-g0aAZrWyUBu' });
+      // Third-party script; blockers make this undefined more often than not.
+      if (typeof emailjs !== 'undefined' && emailjs.init) {
+        emailjs.init({ publicKey: 'ETsJF-g0aAZrWyUBu' });
+      }
     });
   </script>
   <style>
@@ -1347,6 +1350,143 @@
       box-shadow: 0 18px 40px -22px rgba(0,0,0,0.9);
     }
 
+    /* ---- Hero aurora: the mesh blobs drift slowly ---- */
+    .hero-mesh::before { animation: drift1 26s ease-in-out infinite; }
+    .hero-mesh::after  { animation: drift2 32s ease-in-out infinite; }
+    @keyframes drift1 {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50%      { transform: translate3d(-60px, 50px, 0) scale(1.12); }
+    }
+    @keyframes drift2 {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50%      { transform: translate3d(70px, -40px, 0) scale(1.15); }
+    }
+
+    /* ---- Faint grid behind the hero, faded at the edges ---- */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 45%, #000 20%, transparent 75%);
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 45%, #000 20%, transparent 75%);
+    }
+
+    /* ---- Nav condenses once you scroll ---- */
+    nav {
+      transition: height 0.3s ease, background 0.3s ease,
+                  box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    nav.nav-scrolled {
+      height: 52px;
+      background: rgba(8,8,16,0.94);
+      box-shadow: 0 10px 34px -20px rgba(0,0,0,0.95);
+      border-bottom-color: var(--border-bright);
+    }
+    nav.nav-scrolled + .scroll-progress { top: 51px; }
+
+    /* ---- Gradient-ring buttons ---- */
+    .nav-cta, .form-submit { position: relative; overflow: hidden; isolation: isolate; }
+    .nav-cta::before, .form-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(115deg, var(--accent2), var(--accent), var(--purple), var(--accent2));
+      background-size: 300% 100%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .nav-cta:hover::before, .form-submit:hover::before {
+      opacity: 1;
+      animation: ringSlide 2.4s linear infinite;
+    }
+    @keyframes ringSlide {
+      to { background-position: 300% 50%; }
+    }
+    .nav-cta:hover { color: var(--bg); border-color: transparent; background: transparent; }
+    .form-submit:hover { color: var(--bg); opacity: 1; }
+
+    /* ---- Soft glow that trails the cursor ---- */
+    #cursorGlow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 420px; height: 420px;
+      margin: -210px 0 0 -210px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      mix-blend-mode: screen;
+      background: radial-gradient(circle, rgba(91,142,255,0.14), rgba(125,249,194,0.06) 42%, transparent 68%);
+      transition: opacity 0.4s ease;
+      will-change: transform;
+    }
+
+    /* ---- Technology ticker ---- */
+    .ticker {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      overflow: hidden;
+      padding: 18px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      width: max-content;
+      animation: tickerRun 38s linear infinite;
+    }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    .ticker-track span {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .ticker-track span:hover { color: var(--accent); }
+    .ticker-track .tdot { color: var(--accent2); opacity: 0.5; }
+    @keyframes tickerRun {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* ---- Project number lights up with its row ---- */
+    .project-row:hover .pnum { color: var(--accent2); }
+    .pnum { transition: color 0.2s; }
+
+    /* ---- Contact rows nudge, icon pops ---- */
+    .contact-link { transition: background 0.15s, transform 0.3s cubic-bezier(.2,.8,.3,1); }
+    .contact-link:hover { transform: translateX(5px); }
+    .cicon { transition: transform 0.35s cubic-bezier(.2,.8,.3,1); }
+    .contact-link:hover .cicon { transform: scale(1.1) rotate(-6deg); }
+
+    /* Honeypot — off-screen, never focusable, never announced */
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px; height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ---- Visible keyboard focus ---- */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
     /* Honour the user motion preference */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1356,6 +1496,9 @@
         scroll-behavior: auto !important;
       }
       .spot::before { display: none; }
+      #cursorGlow { display: none; }
+      .ticker-track { animation: none; }
+      #hero::before { display: none; }
     }
 
     /* ═══════════════════════════════════════════════
@@ -1746,6 +1889,28 @@
   </div>
 </section>
 
+<!-- ═══ TECH TICKER ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Python</span><span class="tdot">◆</span>
+    <span>LangGraph</span><span class="tdot">◆</span>
+    <span>LangChain</span><span class="tdot">◆</span>
+    <span>PyTorch</span><span class="tdot">◆</span>
+    <span>TensorFlow</span><span class="tdot">◆</span>
+    <span>Scikit-learn</span><span class="tdot">◆</span>
+    <span>RAG Pipelines</span><span class="tdot">◆</span>
+    <span>FastAPI</span><span class="tdot">◆</span>
+    <span>Docker</span><span class="tdot">◆</span>
+    <span>Kubernetes</span><span class="tdot">◆</span>
+    <span>PostgreSQL</span><span class="tdot">◆</span>
+    <span>MLflow</span><span class="tdot">◆</span>
+    <span>Apache Spark</span><span class="tdot">◆</span>
+    <span>AWS</span><span class="tdot">◆</span>
+    <span>Tableau</span><span class="tdot">◆</span>
+    <span>Power BI</span><span class="tdot">◆</span>
+  </div>
+</div>
+
 <!-- ═══ PROJECTS ═══ -->
 <section id="projects">
   <div class="container">
@@ -2110,6 +2275,9 @@
         <input type="hidden" name="access_key" value="9e9ddeab-a59b-42a6-85b8-5808b12c89be"/>
         <input type="hidden" name="subject" value="Portfolio Contact — New Message"/>
         <input type="hidden" name="from_name" value="Portfolio Contact Form"/>
+        <!-- Web3Forms honeypot: bots fill it, humans never see it. Keeps
+             real messages out of the spam bucket. -->
+        <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off"/>
         <div class="form-field">
           <label for="cf-name">Your Name</label>
           <input id="cf-name" type="text" name="name" placeholder="Ada Lovelace" required/>
@@ -2206,39 +2374,68 @@ MIKIAS DAGEM · <strong>Forward Deployed AI Engineer</strong> · Addis Ababa, Et
     status.style.display = 'none';
 
     try {
-      // ── 1. Notify Mikias ──
+      // ── 1. Notify Mikias — this is the delivery that matters ──
       const notifyData = new FormData(form);
       notifyData.set('replyto', senderEmail);
-      const r1 = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST', body: notifyData
-      });
-      const d1 = await r1.json();
-      if (!d1.success) throw new Error(d1.message || 'Submission failed');
+      notifyData.set('name', senderName);
+      notifyData.set('email', senderEmail);
+      notifyData.set('message', senderMsg);
 
-      // ── 2. Auto-reply directly to sender via EmailJS (best-effort) ──
-      emailjs.send(
-        'service_2fhbwat',
-        'template_wroxtz5',
-        {
-          to_name:  senderName,
-          to_email: senderEmail,
-          message:  senderMsg,
-          reply_to: 'mikiasdagem@gmail.com'
-        },
-        { publicKey: 'ETsJF-g0aAZrWyUBu' }
-      ).catch(err => console.error('EmailJS auto-reply failed:', err));
+      const r1 = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: notifyData
+      });
+
+      let d1;
+      try {
+        d1 = await r1.json();
+      } catch (_) {
+        throw new Error('Mail service returned HTTP ' + r1.status);
+      }
+      if (!r1.ok || !d1.success) {
+        // Surface the service's own wording — "invalid access key",
+        // "not verified" and a rate-limit all need different fixes.
+        throw new Error(d1 && d1.message ? d1.message : 'HTTP ' + r1.status);
+      }
+
+      // ── 2. Auto-reply to the sender (best-effort, never fails the send) ──
+      // The EmailJS script is third-party and is routinely blocked by
+      // ad/privacy blockers. If it is missing, skip it — a blocked
+      // auto-reply must not report a delivered message as failed.
+      let autoReplied = false;
+      if (typeof emailjs !== 'undefined' && emailjs && typeof emailjs.send === 'function') {
+        autoReplied = true;
+        emailjs.send(
+          'service_2fhbwat',
+          'template_wroxtz5',
+          {
+            to_name:  senderName,
+            to_email: senderEmail,
+            message:  senderMsg,
+            reply_to: 'mikiasdagem@gmail.com'
+          },
+          { publicKey: 'ETsJF-g0aAZrWyUBu' }
+        ).catch(err => console.error('EmailJS auto-reply failed:', err));
+      } else {
+        console.warn('EmailJS unavailable — auto-reply skipped, message still sent.');
+      }
 
       btn.textContent = 'Sent ✓';
       btn.style.cssText = 'background:var(--accent);color:var(--bg);opacity:1;';
       status.style.cssText = 'display:block;color:var(--accent);';
-      status.textContent = "Thanks! A confirmation has been sent to your email.";
+      status.textContent = autoReplied
+        ? 'Thanks! A confirmation has been sent to your email.'
+        : 'Thanks — your message is on its way.';
       form.reset();
 
     } catch (err) {
+      console.error('Contact form failed:', err);
       btn.textContent = 'Failed — Try Again';
       btn.style.cssText = 'background:var(--accent3);color:#fff;opacity:1;';
       status.style.cssText = 'display:block;color:var(--accent3);';
-      status.textContent = 'Something went wrong. Email me directly: mikiasdagem@gmail.com';
+      status.textContent = 'Could not send (' + (err && err.message ? err.message : 'unknown error') +
+                           '). Email me directly: mikiasdagem@gmail.com';
     } finally {
       setTimeout(() => {
         btn.textContent = 'Send Message →';
@@ -2248,6 +2445,48 @@ MIKIAS DAGEM · <strong>Forward Deployed AI Engineer</strong> · Addis Ababa, Et
     }
   });
 
+
+  // -- Ticker: duplicate the row so the loop is seamless --
+  (function () {
+    const track = document.getElementById('tickerTrack');
+    if (track) track.innerHTML += track.innerHTML;
+  })();
+
+  // -- Nav condenses once you scroll past the fold --
+  (function () {
+    const navEl = document.querySelector('nav');
+    function onScroll() {
+      navEl.classList.toggle('nav-scrolled', window.scrollY > 40);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // -- Cursor glow, pointer devices only --
+  (function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const glow = document.createElement('div');
+    glow.id = 'cursorGlow';
+    document.body.appendChild(glow);
+    let x = 0, y = 0, cx = 0, cy = 0, running = false;
+    document.addEventListener('mousemove', e => {
+      x = e.clientX; y = e.clientY;
+      glow.style.opacity = '1';
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    }, { passive: true });
+    document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+    function loop() {
+      cx += (x - cx) * 0.12;
+      cy += (y - cy) * 0.12;
+      glow.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(x - cx) > 0.5 || Math.abs(y - cy) > 0.5) {
+        requestAnimationFrame(loop);
+      } else {
+        running = false;
+      }
+    }
+  })();
 
   // -- Reduced-motion guard --
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
