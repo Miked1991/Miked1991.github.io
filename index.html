@@ -636,8 +636,63 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
     }
-    .cred-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .cred-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.3s cubic-bezier(.2,.8,.3,1);
+    }
     .cred-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .cred-item:hover { transform: translateX(4px); }
+    .cred-body { min-width: 0; }
+
+    .cred-logo {
+      width: 38px; height: 38px;
+      flex-shrink: 0;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid var(--border-bright);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(.2,.8,.3,1), border-color 0.3s, box-shadow 0.3s;
+    }
+    .cred-logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cred-item:hover .cred-logo { transform: translateY(-2px) scale(1.06); }
+    .cred-item:hover .cred-logo::after { opacity: 1; }
+    .cred-logo svg { width: 19px; height: 19px; fill: currentColor; }
+    .cred-mono {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .l-ibm { color: #5B8EFF; background: rgba(91,142,255,0.08);  border-color: rgba(91,142,255,0.28); }
+    .l-dc  { color: #39D98A; background: rgba(57,217,138,0.08);  border-color: rgba(57,217,138,0.28); }
+    .l-al  { color: #7DF9C2; background: rgba(125,249,194,0.07); border-color: rgba(125,249,194,0.26); }
+    .l-wq  { color: #FFB86C; background: rgba(255,184,108,0.08); border-color: rgba(255,184,108,0.28); }
+    .l-aau { color: #C084FC; background: rgba(192,132,252,0.08); border-color: rgba(192,132,252,0.28); }
+
+    .cred-item:hover .l-ibm { box-shadow: 0 6px 18px -8px rgba(91,142,255,0.55); }
+    .cred-item:hover .l-dc  { box-shadow: 0 6px 18px -8px rgba(57,217,138,0.55); }
+    .cred-item:hover .l-al  { box-shadow: 0 6px 18px -8px rgba(125,249,194,0.55); }
+    .cred-item:hover .l-wq  { box-shadow: 0 6px 18px -8px rgba(255,184,108,0.55); }
+    .cred-item:hover .l-aau { box-shadow: 0 6px 18px -8px rgba(192,132,252,0.55); }
+
+    .cred-done { color: var(--accent); }
+
     .cred-name {
       font-size: 14px;
       font-weight: 700;
@@ -1199,6 +1254,110 @@
       to { opacity: 1; }
     }
 
+    /* ===============================================
+       POLISH
+    =============================================== */
+
+    /* Scroll progress rail under the nav */
+    .scroll-progress {
+      position: fixed;
+      top: 59px; left: 0; right: 0;
+      height: 2px;
+      z-index: 101;
+      background: transparent;
+      pointer-events: none;
+    }
+    .scroll-progress i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent) 55%, var(--purple));
+      box-shadow: 0 0 12px rgba(125,249,194,0.5);
+      transition: width 0.1s linear;
+    }
+
+    /* Gradient-filled accent words in section headings */
+    .section-heading span {
+      background: linear-gradient(100deg, var(--accent2) 0%, var(--accent) 45%, var(--purple) 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hueSlide 9s ease-in-out infinite;
+    }
+    @keyframes hueSlide {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    /* Hero outline breathes between white and accent */
+    .hero-name-last { animation: strokeGlow 7s ease-in-out infinite; }
+    @keyframes strokeGlow {
+      0%, 100% { -webkit-text-stroke-color: rgba(255,255,255,0.25); }
+      50%      { -webkit-text-stroke-color: rgba(125,249,194,0.45); }
+    }
+
+    /* Cursor spotlight on cards */
+    .spot { position: relative; }
+    .spot::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+                  rgba(125,249,194,0.075), transparent 62%);
+      z-index: 0;
+    }
+    .spot:hover::before { opacity: 1; }
+    .spot > * { position: relative; z-index: 1; }
+
+    /* Animated underline on nav links */
+    .nav-links a { position: relative; padding-bottom: 3px; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      height: 1px; width: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s cubic-bezier(.2,.8,.3,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    /* Sheen sweep across hero badges */
+    .badge { position: relative; overflow: hidden; }
+    .badge::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -120%;
+      width: 60%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.16), transparent);
+      transform: skewX(-20deg);
+    }
+    .badge:hover::after { animation: sheen 0.75s ease; }
+    @keyframes sheen { to { left: 140%; } }
+
+    /* Impact cards lift */
+    .ach-card { transition: background 0.15s, transform 0.35s cubic-bezier(.2,.8,.3,1), box-shadow 0.35s; }
+    .ach-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -22px rgba(0,0,0,0.9);
+    }
+
+    /* Honour the user motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .spot::before { display: none; }
+    }
+
     /* ═══════════════════════════════════════════════
        MOBILE
     ═══════════════════════════════════════════════ */
@@ -1221,6 +1380,8 @@
       .exp-row { grid-template-columns: 1fr; gap: 16px; padding: 24px 20px; }
       .exp-when { text-align: left; }
       .cred-grid { grid-template-columns: 1fr; }
+      .spot::before { display: none; }
+      .scroll-progress { top: 58px; }
       .contact-layout { grid-template-columns: 1fr; gap: 40px; }
       .project-row { grid-template-columns: 32px 1fr; }
       .pstat {
@@ -1246,6 +1407,12 @@
 </head>
 <body>
 
+<!-- ═══ BRAND MARK SPRITE ═══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-ibm" viewBox="0 0 24 24"><path d="M23.544 15.993c.038 0 .06-.017.06-.053v-.036c0-.035-.022-.052-.06-.052h-.09v.14zm-.09.262h-.121v-.498h.225c.112 0 .169.066.169.157 0 .079-.036.129-.09.15l.111.19h-.133l-.092-.17h-.07zm.434-.222v-.062c0-.2-.157-.357-.363-.357a.355.355 0 00-.363.357v.062c0 .2.156.358.363.358a.355.355 0 00.363-.358zm-.838-.03c0-.28.212-.492.475-.492.264 0 .475.213.475.491 0 .279-.211.491-.475.491a.477.477 0 01-.475-.49zM16.21 8.13l-.216-.624h-3.56v.624zm.413 1.19l-.216-.623h-3.973v.624zm2.65 7.147h3.107v-.624h-3.108zm0-1.192h3.107v-.623h-3.108zm0-1.19h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-3.555l-.175.504-.175-.504h-3.555v.624h1.865v-.574l.2.574h3.33l.2-.574zm1.864-1.815h-3.142l-.217.624h3.359zm-7.46 3.006h1.865v-.624h-1.865zm0 1.19h1.865v-.623h-1.865zm-1.243 1.191h3.108v-.623h-3.108zm0 1.192h3.108v-.624h-3.108zm6.386-8.961l-.216.624h3.776v-.624zm-.629 1.815h4.19v-.624h-3.974zm-4.514 1.19h3.359l-.216-.623h-3.143zm2.482 2.383h2.496l.218-.624h-2.932zm.417 1.19h1.662l.218-.623h-2.098zm.416 1.191h.83l.218-.623h-1.266zm.414 1.192l.217-.624h-.432zm-12.433-.006l4.578.006c.622 0 1.18-.237 1.602-.624h-6.18zm4.86-3v.624h2.092c0-.216-.03-.425-.083-.624zm-3.616.624h1.865v-.624H6.217zm3.617-3.573h2.008c.053-.199.083-.408.083-.624H9.834zm-3.617 0h1.865v-.624H6.217zM9.55 7.507H4.973v.624h6.18a2.36 2.36 0 00-1.602-.624zm2.056 1.191H4.973v.624h6.884a2.382 2.382 0 00-.25-.624zm-5.39 2.382v.624h4.87c.207-.176.382-.387.519-.624zm4.87 1.191h-4.87v.624h5.389a2.39 2.39 0 00-.519-.624zm-6.114 3.006h6.634c.11-.193.196-.402.25-.624H4.973zM0 8.13h4.352v-.624H0zm0 1.191h4.352v-.624H0zm1.243 1.191h1.865v-.624H1.243zm0 1.191h1.865v-.624H1.243zm0 1.19h1.865v-.623H1.243zm0 1.192h1.865v-.624H1.243zM0 15.276h4.352v-.623H0zm0 1.192h4.352v-.624H0Z"/></symbol>
+  <symbol id="i-datacamp" viewBox="0 0 24 24"><path d="M12.946 18.151v-5.239L21.209 8.2 19.2 7.048l-6.254 3.567V5.36c0-.356-.192-.689-.5-.866L4.922.177a1.434 1.434 0 0 0-1.455.044 1.438 1.438 0 0 0-.676 1.224v14.777A1.44 1.44 0 0 0 4.92 17.49l6.032-3.44v4.683a1 1 0 0 0 .504.867l7.73 4.4 2.01-1.152-8.25-4.697zM10.953 5.938v5.814L4.785 15.27V2.4l6.168 3.539v-.001z"/></symbol>
+</svg>
+
 <!-- ═══ NAV ═══ -->
 <nav>
   <a href="#hero" class="nav-logo">MD<span>.</span></a>
@@ -1262,6 +1429,8 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
+
+<div class="scroll-progress"><i id="sprog"></i></div>
 
 <!-- ═══ HERO ═══ -->
 <section id="hero">
@@ -1372,7 +1541,7 @@
     <h2 class="section-heading reveal">Where I've <span>Built</span></h2>
     <div class="exp-list reveal">
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">Forward Deployed AI Engineer</div>
           <div class="exp-org">10 Academy</div>
@@ -1390,7 +1559,7 @@
         </div>
       </div>
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">Data Scientist</div>
           <div class="exp-org">Arci Trading LLC</div>
@@ -1408,7 +1577,7 @@
         </div>
       </div>
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">Data Scientist / Analyst</div>
           <div class="exp-org">Daryeel Hospital &amp; Diagnostic Center</div>
@@ -1425,7 +1594,7 @@
         </div>
       </div>
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">BCG Data Science Job Simulation</div>
           <div class="exp-org">Forage</div>
@@ -1441,7 +1610,7 @@
         </div>
       </div>
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">System Development Team Head</div>
           <div class="exp-org">Uraget P.L.C</div>
@@ -1456,7 +1625,7 @@
         </div>
       </div>
 
-      <div class="exp-row">
+      <div class="exp-row spot">
         <div>
           <div class="exp-role">Junior Developer &amp; Graphics Expert</div>
           <div class="exp-org">Buhe Belu Animations</div>
@@ -1584,7 +1753,7 @@
     <h2 class="section-heading reveal">Featured <span>Projects</span></h2>
     <div class="projects-list reveal">
 
-      <a class="project-row" href="https://github.com/Miked1991/Document_intelligence_refinery" target="_blank" rel="noopener">
+      <a class="project-row spot" href="https://github.com/Miked1991/Document_intelligence_refinery" target="_blank" rel="noopener">
         <div class="pnum">01</div>
         <div>
           <div class="pname">Document Intelligence Refinery</div>
@@ -1594,7 +1763,7 @@
         <div class="pstat"><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
-      <a class="project-row" href="https://github.com/Miked1991/codebase-intel-system" target="_blank" rel="noopener">
+      <a class="project-row spot" href="https://github.com/Miked1991/codebase-intel-system" target="_blank" rel="noopener">
         <div class="pnum">02</div>
         <div>
           <div class="pname">Brownfield Cartographer</div>
@@ -1604,7 +1773,7 @@
         <div class="pstat"><span class="pmetric">47s<small>500+ files</small></span><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
-      <a class="project-row" href="https://github.com/Miked1991/tenacious-conversion-engine" target="_blank" rel="noopener">
+      <a class="project-row spot" href="https://github.com/Miked1991/tenacious-conversion-engine" target="_blank" rel="noopener">
         <div class="pnum">03</div>
         <div>
           <div class="pname">Tenacious Conversion Engine</div>
@@ -1614,7 +1783,7 @@
         <div class="pstat"><span class="pmetric">72.67%<small>Pass@1</small></span><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
-      <a class="project-row" href="https://github.com/Miked1991/digital-courtroom" target="_blank" rel="noopener">
+      <a class="project-row spot" href="https://github.com/Miked1991/digital-courtroom" target="_blank" rel="noopener">
         <div class="pnum">04</div>
         <div>
           <div class="pname">Digital Courtroom</div>
@@ -1624,7 +1793,7 @@
         <div class="pstat"><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
-      <a class="project-row" href="https://github.com/Miked1991/10acadam_AI_content_gen" target="_blank" rel="noopener">
+      <a class="project-row spot" href="https://github.com/Miked1991/10acadam_AI_content_gen" target="_blank" rel="noopener">
         <div class="pnum">05</div>
         <div>
           <div class="pname">AI Content Generator</div>
@@ -1724,51 +1893,91 @@
     <h2 class="section-heading reveal">Education &amp; <span>Certifications</span></h2>
     <div class="cred-grid reveal">
 
-      <div class="cred-col">
+      <div class="cred-col spot">
         <div class="cred-col-head">Education</div>
+
         <div class="cred-item">
-          <div class="cred-name">MS in Financial Engineering</div>
-          <div class="cred-meta">WorldQuant University <span>·</span> Apr 2026 <span>·</span> <span class="cred-prog">In progress</span></div>
+          <span class="cred-logo l-wq"><span class="cred-mono">WQ</span></span>
+          <div class="cred-body">
+            <div class="cred-name">MS in Financial Engineering</div>
+            <div class="cred-meta">WorldQuant University <span>·</span> Apr 2026 <span>·</span> <span class="cred-prog">In progress</span></div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">BSc in Computer Science</div>
-          <div class="cred-meta">Addis Ababa University <span>·</span> 2017 <span>·</span> <span class="cred-prog">In progress</span></div>
+          <span class="cred-logo l-aau"><span class="cred-mono">AAU</span></span>
+          <div class="cred-body">
+            <div class="cred-name">BSc in Computer Science</div>
+            <div class="cred-meta">Addis Ababa University <span>·</span> 2017 <span>·</span> <span class="cred-done">Graduated</span></div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">Applied Data Science Lab</div>
-          <div class="cred-meta">WorldQuant University <span>·</span> 2022</div>
+          <span class="cred-logo l-wq"><span class="cred-mono">WQ</span></span>
+          <div class="cred-body">
+            <div class="cred-name">Applied Data Science Lab</div>
+            <div class="cred-meta">WorldQuant University <span>·</span> 2022</div>
+          </div>
         </div>
       </div>
 
-      <div class="cred-col">
+      <div class="cred-col spot">
         <div class="cred-col-head">Certifications</div>
+
         <div class="cred-item">
-          <div class="cred-name">IBM Data Science Professional Certificate</div>
-          <div class="cred-meta">IBM <span>·</span> 2022</div>
+          <span class="cred-logo l-ibm"><svg><use href="#i-ibm"/></svg></span>
+          <div class="cred-body">
+            <div class="cred-name">Data Science Professional Certificate</div>
+            <div class="cred-meta">IBM <span>·</span> 2022</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">IBM Machine Learning with Python</div>
-          <div class="cred-meta">IBM <span>·</span> 2022</div>
+          <span class="cred-logo l-ibm"><svg><use href="#i-ibm"/></svg></span>
+          <div class="cred-body">
+            <div class="cred-name">Machine Learning with Python</div>
+            <div class="cred-meta">IBM <span>·</span> 2022</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">IBM Databases &amp; SQL for Data Science</div>
-          <div class="cred-meta">IBM <span>·</span> 2022</div>
+          <span class="cred-logo l-ibm"><svg><use href="#i-ibm"/></svg></span>
+          <div class="cred-body">
+            <div class="cred-name">Databases &amp; SQL for Data Science</div>
+            <div class="cred-meta">IBM <span>·</span> 2022</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">Python Programming — Diploma</div>
-          <div class="cred-meta">Alison <span>·</span> 2022</div>
+          <span class="cred-logo l-dc"><svg><use href="#i-datacamp"/></svg></span>
+          <div class="cred-body">
+            <div class="cred-name">Data Analysis with SQL &amp; Python</div>
+            <div class="cred-meta">DataCamp</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">Front End Development — Diploma</div>
-          <div class="cred-meta">Alison <span>·</span> 2022</div>
+          <span class="cred-logo l-dc"><svg><use href="#i-datacamp"/></svg></span>
+          <div class="cred-body">
+            <div class="cred-name">Data Science Track</div>
+            <div class="cred-meta">DataCamp</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">Data Analysis with SQL &amp; Python</div>
-          <div class="cred-meta">DataCamp</div>
+          <span class="cred-logo l-al"><span class="cred-mono">AL</span></span>
+          <div class="cred-body">
+            <div class="cred-name">Python Programming — Diploma</div>
+            <div class="cred-meta">Alison <span>·</span> 2022</div>
+          </div>
         </div>
+
         <div class="cred-item">
-          <div class="cred-name">Data Science Track</div>
-          <div class="cred-meta">DataCamp</div>
+          <span class="cred-logo l-al"><span class="cred-mono">AL</span></span>
+          <div class="cred-body">
+            <div class="cred-name">Front End Development — Diploma</div>
+            <div class="cred-meta">Alison <span>·</span> 2022</div>
+          </div>
         </div>
       </div>
 
@@ -1783,7 +1992,7 @@
     <h2 class="section-heading reveal">What People <span>Say</span></h2>
     <div class="testimonials-grid reveal">
 
-      <div class="tcard">
+      <div class="tcard spot">
         <div class="tquote-mark">"</div>
         <div class="tquote">Mikias consistently delivers production-ready systems, not prototypes. His ability to translate ambiguous requirements into working agentic pipelines is rare — and his attention to reliability under real-world conditions sets him apart.</div>
         <div class="tauthor">
@@ -1795,7 +2004,7 @@
         </div>
       </div>
 
-      <div class="tcard">
+      <div class="tcard spot">
         <div class="tquote-mark">"</div>
         <div class="tquote">Working with Mikias on the codebase intelligence project was eye-opening. He built tooling in days that would have taken our team weeks. The Brownfield Cartographer alone saved us countless hours of onboarding time.</div>
         <div class="tauthor">
@@ -1807,7 +2016,7 @@
         </div>
       </div>
 
-      <div class="tcard">
+      <div class="tcard spot">
         <div class="tquote-mark">"</div>
         <div class="tquote">What impresses me most is Mikias's engineering discipline — eval-driven development, structured outputs, observable pipelines. He thinks like a senior engineer from day one.</div>
         <div class="tauthor">
@@ -2038,6 +2247,64 @@ MIKIAS DAGEM · <strong>Forward Deployed AI Engineer</strong> · Addis Ababa, Et
       }, 5000);
     }
   });
+
+
+  // -- Reduced-motion guard --
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // -- Scroll progress rail --
+  const sprog = document.getElementById('sprog');
+  function updateProgress() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    sprog.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // -- Cursor spotlight on cards --
+  if (!REDUCED && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.spot').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    });
+  }
+
+  // -- Count-up on stat numbers once they scroll into view --
+  function countUp(el) {
+    const html = el.innerHTML;
+    const m = html.match(/^\s*(\d+)/);
+    if (!m) return;
+    const target = parseInt(m[1], 10);
+    const rest = html.slice(m[0].length);
+    if (REDUCED) return;
+    const dur = 900;
+    let start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - prog, 3);
+      el.innerHTML = Math.round(target * eased) + rest;
+      if (prog < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll('.stat-num, .hero-stat-num');
+  const cio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp(e.target);
+        cio.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => cio.observe(el));
 
   // ── Smooth scroll for nav ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
