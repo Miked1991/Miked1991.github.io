@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mikias Dagem — Forward Deployed Engineer · AI Engineer · Data Scientist</title>
-  <meta name="description" content="Mikias Dagem — Forward Deployed Engineer and Data Scientist in Addis Ababa, Ethiopia. Agentic AI systems, LLM pipelines and predictive modelling deployed across healthcare, finance and e-commerce."/>
+  <title>Mikias Dagem — Forward Deployed AI Engineer · Data Scientist</title>
+  <meta name="description" content="Mikias Dagem — Forward Deployed AI Engineer and Data Scientist in Addis Ababa, Ethiopia. Agentic AI systems, LLM pipelines and predictive modelling deployed across healthcare, finance and e-commerce."/>
   <meta property="og:title" content="Mikias Dagem"/>
   <meta property="og:description" content="Agentic AI systems, LLM pipelines and predictive modelling — production-grade, measurably better."/>
   <meta property="og:type" content="website"/>
@@ -735,9 +735,12 @@
       font-size: 13px;
       color: var(--accent);
       white-space: nowrap;
-      text-align: right;
       padding-top: 3px;
       font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
     }
     .pstat small {
       display: block;
@@ -746,6 +749,14 @@
       margin-top: 4px;
       font-weight: 300;
     }
+    .pmetric { text-align: right; }
+    .plink {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .plink small { margin-top: 0; }
     .pstat .arrow {
       display: inline-flex;
       align-items: center;
@@ -757,6 +768,7 @@
       color: var(--muted);
       transition: border-color 0.2s, color 0.2s, transform 0.2s;
     }
+    .pstat .arrow { flex-shrink: 0; }
     .project-row:hover .arrow {
       border-color: var(--accent2);
       color: var(--accent2);
@@ -1211,7 +1223,16 @@
       .cred-grid { grid-template-columns: 1fr; }
       .contact-layout { grid-template-columns: 1fr; gap: 40px; }
       .project-row { grid-template-columns: 32px 1fr; }
-      .pstat .arrow { display: none; }
+      .pstat {
+        grid-column: 2;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px;
+        margin-top: 14px;
+      }
+      .pmetric { text-align: left; }
+      .plink { flex-direction: row; align-items: center; gap: 8px; }
 
       .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -1253,7 +1274,7 @@
   </div>
 
   <div class="hero-inner">
-    <div class="hero-eyebrow">Forward Deployed Engineer · AI Engineer · Data Scientist</div>
+    <div class="hero-eyebrow">Forward Deployed AI Engineer · Data Scientist</div>
 
     <h1 class="hero-name">
       MIKIAS
@@ -1284,7 +1305,7 @@
       <span class="badge bg">Open to Collaborations</span>
       <span class="badge bb">Agentic AI &amp; LangGraph</span>
       <span class="badge ba">Predictive Modelling</span>
-      <span class="badge br">Forward Deployed Eng.</span>
+      <span class="badge br">Forward Deployed AI Eng.</span>
       <span class="badge bm">MLOps &amp; Observability</span>
     </div>
   </div>
@@ -1302,7 +1323,7 @@
     <h2 class="section-heading reveal">Who I <span>Am</span></h2>
     <div class="about-grid reveal">
       <div class="about-text">
-        <p>I'm a <strong>Forward Deployed Engineer at 10 Academy</strong> and a <strong>Data Scientist at Arci Trading</strong>, working at the intersection of machine learning, systems engineering, and real-world deployment. I design and ship <strong>production-grade AI systems</strong> — not demos.</p>
+        <p>I'm a <strong>Forward Deployed AI Engineer at 10 Academy</strong> and a <strong>Data Scientist at Arci Trading</strong>, working at the intersection of machine learning, systems engineering, and real-world deployment. I design and ship <strong>production-grade AI systems</strong> — not demos.</p>
         <p>Over the last nine years I've moved from front-end development into <strong>clinical analytics, demand forecasting and agentic AI</strong> — building LangGraph pipelines that cut manual intervention ~40%, forecasting models that reduced stockouts 30%, and segmentation work that lifted retention 15%.</p>
         <p>I care about systems that hold under pressure, not just ones that shine on benchmarks: <strong>eval-driven development, observability and guardrails</strong> are part of the build, not an afterthought. Currently reading for an <strong>MS in Financial Engineering</strong> at WorldQuant University.</p>
       </div>
@@ -1313,7 +1334,7 @@
         </div>
         <div class="fact-row">
           <span class="fact-key">Role</span>
-          <span class="fact-val">Forward Deployed / AI Engineer</span>
+          <span class="fact-val">Forward Deployed AI Engineer</span>
         </div>
         <div class="fact-row">
           <span class="fact-key">Company</span>
@@ -1353,7 +1374,7 @@
 
       <div class="exp-row">
         <div>
-          <div class="exp-role">Forward Deployed Engineer / AI Engineer</div>
+          <div class="exp-role">Forward Deployed AI Engineer</div>
           <div class="exp-org">10 Academy</div>
           <ul class="exp-points">
             <li>Built <strong>LangGraph agentic AI pipelines</strong> for customer support; cut manual intervention ~40%.</li>
@@ -1570,17 +1591,17 @@
           <div class="pdesc">Production-grade, multi-stage agentic pipeline for extracting structured knowledge from complex documents — PDFs, scans, and mixed-format corpora. Designed for real enterprise document workflows.</div>
           <div class="ptags"><span class="ptag">LangGraph</span><span class="ptag">Python</span><span class="ptag">Multi-stage agents</span><span class="ptag">PDF parsing</span><span class="ptag">NLP</span></div>
         </div>
-        <div class="pstat"><span class="arrow">↗</span><small>view repo</small></div>
+        <div class="pstat"><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
       <a class="project-row" href="https://github.com/Miked1991/codebase-intel-system" target="_blank" rel="noopener">
         <div class="pnum">02</div>
         <div>
           <div class="pname">Brownfield Cartographer</div>
-          <div class="pdesc">Codebase intelligence system for Forward Deployed Engineers. Analyzes 500+ files in ~47 seconds — outputs module dependency graphs and data lineage maps. Built to understand codebases you didn't write.</div>
+          <div class="pdesc">Codebase intelligence system for Forward Deployed AI Engineers. Analyzes 500+ files in ~47 seconds — outputs module dependency graphs and data lineage maps. Built to understand codebases you didn't write.</div>
           <div class="ptags"><span class="ptag">Python</span><span class="ptag">AST analysis</span><span class="ptag">Graph analysis</span><span class="ptag">FDE tooling</span></div>
         </div>
-        <div class="pstat">47s<small>500+ files</small></div>
+        <div class="pstat"><span class="pmetric">47s<small>500+ files</small></span><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
       <a class="project-row" href="https://github.com/Miked1991/tenacious-conversion-engine" target="_blank" rel="noopener">
@@ -1590,7 +1611,7 @@
           <div class="pdesc">B2B sales automation with Crunchbase enrichment, AI maturity scoring, and personalized outreach generation. Benchmarked at Pass@1 of 72.67% — a production sales intelligence engine.</div>
           <div class="ptags"><span class="ptag">FastAPI</span><span class="ptag">Python</span><span class="ptag">Crunchbase API</span><span class="ptag">LLM scoring</span><span class="ptag">Sales AI</span></div>
         </div>
-        <div class="pstat">72.67%<small>Pass@1</small></div>
+        <div class="pstat"><span class="pmetric">72.67%<small>Pass@1</small></span><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
       <a class="project-row" href="https://github.com/Miked1991/digital-courtroom" target="_blank" rel="noopener">
@@ -1600,7 +1621,7 @@
           <div class="pdesc">LangGraph-orchestrated auditing system for forensic codebase analysis. Multi-node architecture: Detective → Judge → Synthesis. Produces structured, actionable security and quality reports.</div>
           <div class="ptags"><span class="ptag">LangGraph</span><span class="ptag">Python</span><span class="ptag">Forensic analysis</span><span class="ptag">Graph orchestration</span></div>
         </div>
-        <div class="pstat"><span class="arrow">↗</span><small>view repo</small></div>
+        <div class="pstat"><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
       <a class="project-row" href="https://github.com/Miked1991/10acadam_AI_content_gen" target="_blank" rel="noopener">
@@ -1610,7 +1631,7 @@
           <div class="pdesc">Multi-provider async framework for AI-generated multimedia content — music, video, and images across Google Lyria, MiniMax, and KlingAI. Unified API abstraction over competing generation providers.</div>
           <div class="ptags"><span class="ptag">Python</span><span class="ptag">FFmpeg</span><span class="ptag">Async</span><span class="ptag">Multi-provider</span><span class="ptag">Multimedia AI</span></div>
         </div>
-        <div class="pstat"><span class="arrow">↗</span><small>view repo</small></div>
+        <div class="pstat"><span class="plink"><span class="arrow">↗</span><small>view repo</small></span></div>
       </a>
 
     </div>
@@ -1905,7 +1926,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-copy">
-MIKIAS DAGEM · <strong>Forward Deployed Engineer</strong> · Addis Ababa, Ethiopia
+MIKIAS DAGEM · <strong>Forward Deployed AI Engineer</strong> · Addis Ababa, Ethiopia
       </div>
       <div class="footer-right">
         <div class="pulse"></div>
