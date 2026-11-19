@@ -8,6 +8,12 @@
   <meta property="og:title" content="Mikias Dagem"/>
   <meta property="og:description" content="Agentic AI systems, LLM pipelines and predictive modelling — production-grade, measurably better."/>
   <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://miked1991.github.io/"/>
+  <meta property="og:image" content="https://miked1991.github.io/og-image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080810'/%3E%3Ctext x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='26' text-anchor='middle' fill='%237DF9C2'%3EMD%3C/text%3E%3C/svg%3E"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
@@ -136,6 +142,8 @@
       cursor: pointer;
       padding: 4px;
     }
+    .nav-burger { background: none; border: 0; }
+    .nav-burger:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
     .nav-burger span {
       display: block;
       width: 24px; height: 1.5px;
@@ -1028,6 +1036,9 @@
     }
     .blog-card:hover { background: var(--card-hover); }
     .blog-card:hover::after { transform: scaleX(1); }
+    .blog-card.is-soon { cursor: default; }
+    .blog-card.is-soon:hover { background: var(--card); }
+    .blog-card.is-soon:hover::after { transform: scaleX(0); }
 
     .blog-meta {
       display: flex;
@@ -1734,9 +1745,9 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="mailto:mikiasdagem@gmail.com" class="nav-cta">Hire Me</a>
-  <div class="nav-burger" onclick="toggleMenu()">
+  <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <div class="scroll-progress"><i id="sprog"></i></div>
@@ -2357,7 +2368,7 @@
     <h2 class="section-heading reveal">Thoughts & <span>Articles</span></h2>
     <div class="blog-grid reveal">
 
-      <a class="blog-card" href="#" target="_blank" rel="noopener">
+      <div class="blog-card is-soon">
         <div class="blog-meta">
           <span class="blog-tag">Agentic AI</span>
           <span class="blog-date">Coming soon</span>
@@ -2365,9 +2376,9 @@
         <div class="blog-title">Building Multi-Agent Pipelines That Actually Work in Production</div>
         <div class="blog-excerpt">Most agentic systems fail when they hit the real world. Here's what I've learned shipping LangGraph-based pipelines to actual customers with actual data.</div>
         <div class="blog-read">Read article →</div>
-      </a>
+      </div>
 
-      <a class="blog-card" href="#" target="_blank" rel="noopener">
+      <div class="blog-card is-soon">
         <div class="blog-meta">
           <span class="blog-tag">Data Science</span>
           <span class="blog-date">Coming soon</span>
@@ -2375,9 +2386,9 @@
         <div class="blog-title">Eval-Driven Development: Why I Measure Before I Ship</div>
         <div class="blog-excerpt">A 72.67% Pass@1 score doesn't happen by accident. Here's the evaluation-first methodology that drives every system I build.</div>
         <div class="blog-read">Read article →</div>
-      </a>
+      </div>
 
-      <a class="blog-card" href="#" target="_blank" rel="noopener">
+      <div class="blog-card is-soon">
         <div class="blog-meta">
           <span class="blog-tag">FDE Tooling</span>
           <span class="blog-date">Coming soon</span>
@@ -2385,7 +2396,7 @@
         <div class="blog-title">Understanding a 500-File Codebase in Under a Minute</div>
         <div class="blog-excerpt">How I built the Brownfield Cartographer — a codebase intelligence tool that maps module dependencies and data lineage automatically using AST analysis.</div>
         <div class="blog-read">Read article →</div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -2498,6 +2509,9 @@ MIKIAS DAGEM · <strong>Forward Deployed AI Engineer</strong> · Addis Ababa, Et
   let menuOpen = false;
   function toggleMenu() {
     menuOpen = !menuOpen;
+    const burger = document.querySelector('.nav-burger');
+    burger.setAttribute('aria-expanded', menuOpen);
+    burger.setAttribute('aria-label', menuOpen ? 'Close menu' : 'Open menu');
     const links = document.querySelector('.nav-links');
     const cta = document.querySelector('.nav-cta');
     if (menuOpen) {
